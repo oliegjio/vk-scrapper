@@ -1,0 +1,2 @@
+=> Network.HTTP.Simple documentation:
+http://hackage.haskell.org/package/http-conduit-2.3.2/docs/Network-HTTP-Simple.html

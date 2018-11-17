@@ -1,0 +1,33 @@
+name:                vk-scrapper
+github:              "oliegjio/vk-scrapper"
+
+dependencies:
+- base >= 4.7 && < 5
+
+library:
+  source-dirs: src
+
+executables:
+  vk-scrapper-exe:
+    main:                Main.hs
+    source-dirs:         app
+    ghc-options:
+    - -threaded
+    - -rtsopts
+    - -with-rtsopts=-N
+    dependencies:
+    - vk-scrapper
+    - http-conduit
+    - bytestring
+    - tagsoup
+
+tests:
+  vk-scrapper-test:
+    main:                Spec.hs
+    source-dirs:         test
+    ghc-options:
+    - -threaded
+    - -rtsopts
+    - -with-rtsopts=-N
+    dependencies:
+    - vk-scrapper
