@@ -21,6 +21,8 @@ executables:
     - http-types
     - bytestring
     - tagsoup
+    - async
+    - time
 
 tests:
   vk-scrapper-test:
