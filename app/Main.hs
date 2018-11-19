@@ -11,10 +11,9 @@ import System.Environment (getArgs)
 import System.Exit (exitWith, ExitCode (..))
 
 offlineTag = TagOpen "span" [("class", "pp_last_activity_offline_text")]
-vkLink = "https://vk.com/sorokin_o"
 
 getTime :: IO String
-getTime = take 19 <$> show <$> getCurrentTime 
+getTime = take 19 <$> show <$> getCurrentTime
 
 getStatus :: String -> IO ()
 getStatus link = do
