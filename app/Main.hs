@@ -8,26 +8,27 @@ import Control.Concurrent (threadDelay)
 import Control.Concurrent.Async (async)
 import Data.Time (getCurrentTime)
 import System.Environment (getArgs)
-import System.Exit (exitWith, ExitCode (..))
+import System.Exit (exitWith, ExitCode (ExitFailure))
 
 offlineTag = TagOpen "span" [("class", "pp_last_activity_offline_text")]
-vkLink = "https://vk.com/sorokin_o"
 
 getTime :: IO String
 getTime = take 19 <$> show <$> getCurrentTime 
 
-getStatus :: String -> IO ()
-getStatus link = do
-    tags <- parseTags <$> get link
-    let isOnline = not $ offlineTag `elem` tags
-    time <- getTime
-    let message = time ++ " " ++ show isOnline ++ "\n"
-    print message
-    appendFile "sandbox/status.txt" message
+getStatus :: String -> IO Bool
+getStatus link = not <$> elem offlineTag <$> parseTags <$> get link
+
+action :: String -> IO ()
+action link = do
+   status <- getStatus link 
+   time <- getTime
+   let message = time ++ " " ++ show status ++ "\n"
+   print message
+   appendFile "sandbox/status.txt" message
 
 loop :: String -> IO ()
 loop link = do
-    async $ getStatus link
+    async $ action link
     threadDelay $ 5 * 1000000
     loop link
 
